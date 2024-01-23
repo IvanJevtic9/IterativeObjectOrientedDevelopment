@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Demo
 {
-    internal class Expression
+    internal class Expression : IEquatable<Expression>
     {
         private char Operator { get; }
         private Expression LeftChild { get; }
@@ -13,13 +13,8 @@ namespace Demo
         public int Value { get; }
         public IEnumerable<int> UsedNumbers { get; }
 
-        public Expression(int value)
-        {
-            Operator = '\0';
-
-            Value = value;
-            UsedNumbers = new[] { value };
-        }
+        public Expression(int value) =>
+            (Operator, Value, UsedNumbers) = ('\0', value, new[] { value });
 
         public Expression(
             int value,
@@ -32,7 +27,7 @@ namespace Demo
             RightChild = rightChild;
 
             Value = value;
-            UsedNumbers = leftChild.UsedNumbers.Union(rightChild.UsedNumbers);
+            UsedNumbers = leftChild.UsedNumbers.Concat(rightChild.UsedNumbers);
         }
         internal Expression CombineWith(Expression other, char @operator, int value) =>
             new Expression(value, @operator, this, other);
@@ -47,5 +42,23 @@ namespace Demo
             expr.Operator == '\0' ?
                 $"{expr.Value}" :
                 $"{expr.Parenthesize(expr.LeftChild)} {Operator} {expr.Parenthesize(expr.RightChild)}";
+
+        public override bool Equals(object other) => Equals(other as Expression);
+
+        public bool Equals(Expression other) =>
+            !(other is null) &&
+            Value == other.Value &&
+            Operator == other.Operator &&
+            NullableEqual(LeftChild, other.LeftChild) &&
+            NullableEqual(RightChild, other.RightChild);
+
+        private bool NullableEqual(Expression a, Expression b) =>
+            (a is null && b is null) || (!(a is null) && a.Equals(b));
+
+        public override int GetHashCode() =>
+            Operator.GetHashCode() ^
+            (Value << 1) ^
+            ((LeftChild?.GetHashCode() ?? 0) << 2) ^
+            ((RightChild?.GetHashCode() ?? 0) << 3);
     }
 }

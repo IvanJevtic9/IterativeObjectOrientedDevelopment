@@ -26,3 +26,32 @@ Section1:
   to fix the issues and try to implement more customer’s requirements
 
 Section2: 
+
+- The previous module has left us with an implementation which looked like a program that works
+  In this module, we have tried to live with that code, and to maintain it
+  That included adding more features, fixing bugs and trying to improve performance
+  The truth is that this module was suffering all the way through
+  The program which fails to obey principles of good object-oriented design is hard to maintain
+
+- It is hard to add new features to it
+  I used a lot of copy-paste to add more behavior, which is plain wrong
+  It is hard to change the implementation when elements are not decoupled,
+  because every single change is modifying several things simultaneously
+
+- Again, due to the lack of separation between elements of the design,
+  I was utterly unable to modify the algorithm when I found the performance bottleneck
+ All the way through, I was constantly suffering due to the lack of proper abstractions
+
+- Whatever abstractions I could find in the NET Framework and apply to my design,
+  all of them turned to be misplaced, and they eventually caused a lot of damage to clarity and extensibility of my code
+  So, those are the issues that have been identified this far
+
+- Bad design consists of no decoupling, tangled implementation of the algorithm, and missing abstractions
+  That will be the approach known as Emergent Design
+
+- It sits on top of the iterative development, which I was applying constantly throughout this demonstration
+  But it adds the designing effort to every iteration, no matter how small or isolated it might be
+  One step at the time, a well-thought-out design will emerge
+
+- The application will be able to do whatever it is doing right now
+  But it will suddenly become maintainable
