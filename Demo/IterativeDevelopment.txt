@@ -1,0 +1,28 @@
+
+	Summary
+
+Section1:
+
+- In this opening module we have defined the requirements for a sample application
+  Then, we have applied the principles of iterative development to implement the requirements
+
+- You can rely on iterative development when implementing an algorithm
+  or when implementing the straight-forward code all the same
+
+- The idea behind it is that any development can be split into iterations
+  and every iteration broken down into even smaller iterations
+  The goal of the game is to reach such small, limited iterations
+  that it takes only a line or two of code to implement them
+
+- Every piece of code which is iteratively added to the code base is there to implement one tiny requirement
+  As long as that requirement stays intact, the corresponding piece of code will remain correct
+
+- Requirements rarely remain intact, They change over time
+  New ones come, old ones change, evolve or disappear
+  How will the code built with principles of iterative development in mind survive these changes?
+  That remains to be seen, and that is precisely what we will be dealing with in the next module
+
+- The goal of the module to come will be to figure the deficiencies of the current implementation
+  to fix the issues and try to implement more customer’s requirements
+
+Section2: 
