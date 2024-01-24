@@ -55,3 +55,39 @@ Section2:
 
 - The application will be able to do whatever it is doing right now
   But it will suddenly become maintainable
+
+Section 3
+
+- In this module, we have tackled the question of designing the code as it grows iteratively
+  That approach has its challenges, and you have only seen some of them in this demonstration
+  You have learned that code should be developed in terms of abstractions 
+  where each abstraction is named after the need we have and exposed in form which is useful to the consumer
+
+- Whether it be an interface, or an abstract, or even a concrete class, or, why not tell
+  a member function on the same class which consumes it the concept we need must be readily available and easy to consume
+
+- As more and more features are added, you will notice that infrastructural, general concepts
+  have become part of your code where only domain-related logic would be expected
+ 
+- That is the state of the application which we have reached so far
+  Some parts were good, some others not so good
+  What I consider not good at this stage, is that there is a lot of infrastructural code
+  mixed with proper domain-related code
+
+Section 4:
+
+- In this module, you have learned the benefits of organizing operations into stages
+  and letting each stage transform state into a new state
+  Once that is done, you will be able to compose different stages into a pipeline
+  which performs a complex operation without risking that any of the separate stages will fail
+  The situation is simple, as every stage is only concerned of doing one task
+
+- The risk of introducing a defect is significantly reduced that way
+  you can even view the entire program as one giant pipeline
+  A good approach is to group related operations into smaller pipelines and to give them a meaningful name
+  That would be about all when it comes to separating complex operations into linear stages
+
+- Domain-related code should be kept separate
+  Not only that these two are addressing distinct problems but having them mixed together
+
+Section 5:

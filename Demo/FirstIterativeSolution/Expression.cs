@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 
-namespace Demo
+namespace Demo.FirstIterativeSolution
 {
     internal class Expression : IEquatable<Expression>
     {
@@ -53,12 +53,12 @@ namespace Demo
             NullableEqual(RightChild, other.RightChild);
 
         private bool NullableEqual(Expression a, Expression b) =>
-            (a is null && b is null) || (!(a is null) && a.Equals(b));
+            a is null && b is null || !(a is null) && a.Equals(b);
 
         public override int GetHashCode() =>
             Operator.GetHashCode() ^
-            (Value << 1) ^
-            ((LeftChild?.GetHashCode() ?? 0) << 2) ^
-            ((RightChild?.GetHashCode() ?? 0) << 3);
+            Value << 1 ^
+            (LeftChild?.GetHashCode() ?? 0) << 2 ^
+            (RightChild?.GetHashCode() ?? 0) << 3;
     }
 }

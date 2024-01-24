@@ -3,39 +3,39 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Demo
+namespace Demo.FirstIterativeSolution
 {
     /*
         1 2 3 4 - 3 => 1 + 2 , 6 8 2 - 24 => 6 * 8 / 2 , (+ - / *)
     */
     class Program
     {
-        static void Main(string[] args)
-        {
-            while (true)
-            {
-                var problem = ReadProblem();
-                if (problem is null)
-                    break;
+        //static void Main(string[] args)
+        //{
+        //    while (true)
+        //    {
+        //        var problem = ReadProblem();
+        //        if (problem is null)
+        //            break;
 
-                var solution = Solve(problem);
-                var report = solution?.ToString() ?? "No solution found";
-                Console.WriteLine(report);
-                Console.WriteLine();
-            }
-        }
+        //        var solution = Solve(problem);
+        //        var report = solution?.ToString() ?? "No solution found";
+        //        Console.WriteLine(report);
+        //        Console.WriteLine();
+        //    }
+        //}
 
         private static IEnumerable<int> ExceptWithDuplicates(IEnumerable<int> from, IEnumerable<int> remove) =>
-            from.Select(value => (value: value, count: 1))
-                .Concat(remove.Select(value => (value: value, count: -1)))
+            from.Select(value => (value, count: 1))
+                .Concat(remove.Select(value => (value, count: -1)))
                 .GroupBy(tuple => tuple.value)
                 .Select(group => (value: group.Key, count: group.Sum(tuple => tuple.count)))
                 .Where(tuple => tuple.count > 0)
                 .SelectMany(tuple => Enumerable.Repeat(tuple.value, tuple.count));
 
         private static bool IsSuperset(IEnumerable<int> sequence, IEnumerable<int> of) =>
-            sequence.Select(value => (value: value, count: 1))
-                    .Concat(of.Select(value => (value: value, count: -1)))
+            sequence.Select(value => (value, count: 1))
+                    .Concat(of.Select(value => (value, count: -1)))
                     .GroupBy(tuple => tuple.value)
                     .All(group => group.Sum(tuple => tuple.count) >= 0);
 
@@ -48,7 +48,7 @@ namespace Demo
             var known = new HashSet<Expression>();
             while (combining.TryDequeue(out Expression current))
             {
-                if(current.Value == problem.DesiredResult)
+                if (current.Value == problem.DesiredResult)
                 {
                     return current;
                 }
@@ -56,7 +56,7 @@ namespace Demo
                 var availableNumbers = ExceptWithDuplicates(problem.InputNumbers, current.UsedNumbers);
 
                 var combinableWith = known
-                    .Where(expr => 
+                    .Where(expr =>
                         IsSuperset(availableNumbers, expr.UsedNumbers));
 
                 foreach (var existing in combinableWith)
@@ -73,7 +73,7 @@ namespace Demo
                     combining.Enqueue(current
                         .CombineWith(existing, '-', existing.Value - current.Value));
 
-                    if(existing.Value != 0 && current.Value % existing.Value == 0)
+                    if (existing.Value != 0 && current.Value % existing.Value == 0)
                     {
                         combining.Enqueue(current
                             .CombineWith(existing, '/', current.Value / existing.Value));
