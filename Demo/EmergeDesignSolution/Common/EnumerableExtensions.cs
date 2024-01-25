@@ -35,5 +35,7 @@ namespace Demo.EmergeDesignSolution.Common
 
             return any;
         }
+
+        public static bool IsEmpty<T>(this IEnumerable<T> sequence) => !sequence.Any();
     }
 }

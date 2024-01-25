@@ -5,12 +5,12 @@ namespace Demo.EmergeDesignSolution.Domain
 {
     internal class ProblemStatement
     {
-        private int DesiredNumber;
-        private IEnumerable<int> InputNumbers;
+        public IEnumerable<int> InputNumbers;
+        public int DesiredNumber { get; }
 
         public ProblemStatement(IEnumerable<int> inputs, int desiredNumber)
         {
-            InputNumbers = inputs;
+            InputNumbers = inputs ?? Enumerable.Empty<int>();
             DesiredNumber = desiredNumber;
         }
 

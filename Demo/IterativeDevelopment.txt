@@ -91,3 +91,41 @@ Section 4:
   Not only that these two are addressing distinct problems but having them mixed together
 
 Section 5:
+
+- we have laid foundations to emergent algorithm design, algorithms can easily be organized into a pipeline
+  by splitting them into stages that are performing isolated well-defined transformations to the input data
+
+- there is a more general structure of algorithms
+  where each algorithm is a thin wrapper around a smaller
+  more focused subordinate algorithm
+
+- This onion-like organization of behavior is letting you mix and match behaviors
+  and operators and turn them into tremendously complex features
+
+- At the same time, this organization lets you reuse inner parts in separate behaviors
+  or even replace them at run-time for various reasons
+  That is the flexibility you don't get with traditional
+  monolithic implementation of business algorithms
+
+Section 6:
+
+- we have pushed algorithm design one step deeper in direction of growing details
+  we have seen how an algorithm implementation can be matched with use cases supported by that implementation
+
+- I have speculated that there is a relationship between designing an algorithm iteratively and adding use cases iteratively
+  On both accounts, my intention is to add simple items first and then extend the design in direction of more complex items
+
+- In that light, I would start from the use cases and identify layers, or nested ranges of use cases
+  where there is a clean notion of simple versus complex use cases
+  Then I translate this scheme to the behavior design
+  which is the function responsible for all these use cases
+
+- The order of use cases is leading the development iterations which, at the end
+  will leave me with the entire complex function fully implemented
+
+- There was one more issue that had to be addressed with this development style
+  I have advised that every development iteration should be followed by a cleanup iteration
+  he purpose of this step is to group and move classes, remove duplicated code
+  nd make other small changes, in order to keep your entire solution clean and simple
+
+Section 7:

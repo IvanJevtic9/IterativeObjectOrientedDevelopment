@@ -5,11 +5,26 @@ using Demo.EmergeDesignSolution.Common;
 
 namespace Demo.EmergeDesignSolution.Domain
 {
+    internal class ConsoleInputReader
+    {
+        private string Prompt { get; } = string.Empty;
+
+        public ConsoleInputReader() : this("Input numbers: ") { }
+
+        public ConsoleInputReader(string prompt) =>
+            Prompt = prompt ?? string.Empty;
+
+        private void PromptInputNumbers() =>
+            Console.Write(Prompt);
+
+        internal IEnumerable<IEnumerable<int>> ReadAll() =>
+            Console.In
+                .IncomingLines(PromptInputNumbers)
+                .NonNegativeIntegerSequences();
+    }
+
     internal class ConsoleProblemReader
     {
-        private void PromptInputNumbers() =>
-            Console.Write("Input numbers: ");
-
         private void PromptDesiredResults() =>
             Console.Write("Input desired number: ");
 
@@ -19,10 +34,8 @@ namespace Demo.EmergeDesignSolution.Domain
                 .SingleNonNegativeInteger();
 
         private IEnumerable<IEnumerable<int>> InputNumberSequence =>
-            Console.In
-                .IncomingLines(PromptInputNumbers)
-                .NonNegativeIntegerSequences();
-        
+            new ConsoleInputReader("Input numbers: ").ReadAll();
+
         private IEnumerable<(IEnumerable<int> inputs, int desiredNumber)> RawNumbersSequence =>
             InputNumberSequence.Zip(
                 DesiredResults,
