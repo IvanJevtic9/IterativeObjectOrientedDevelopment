@@ -1,16 +1,13 @@
-﻿namespace Demo.EmergeDesignSolution.Domain.Expressions
+﻿namespace Demo.Domain.Expressions
 {
-    internal class Add : Expression
+    class Add : BinaryExpression
     {
-        private Expression Left { get; }
-        private Expression Right { get; }
+        public Add(Expression left, Expression right)
+            : base(left, right) { }
 
-        public override int Value => Left.Value + Right.Value;
+        protected override int Combine(int left, int right) => 
+            left + right;
 
-        public Add(Expression left, Expression right) =>
-            (Left, Right) = (left, right);
-
-        public override string ToString() =>
-            $"{Left} + {Right}";
+        protected override string OperatorToString => "+";
     }
 }

@@ -1,23 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
 
-namespace Demo.EmergeDesignSolution.Common
+namespace Demo.Common
 {
-    internal static class TextReaderExtensions
+    static class TextReaderExtensions
     {
-        private static IEnumerable<string> NullableIncomingLines(this TextReader reader, Action promptLineMessage)
+        public static IEnumerable<string> IncomingLines(this TextReader reader, Action prompt) =>
+            reader.NullableIncomingLines(prompt).TakeWhile(line => !ReferenceEquals(line, null));
+
+        private static IEnumerable<string> NullableIncomingLines(this TextReader reader, Action prompt)
         {
             while (true)
             {
-                promptLineMessage.Invoke();
+                prompt();
                 yield return reader.ReadLine();
             }
         }
-
-        public static IEnumerable<string> IncomingLines(this TextReader reader, Action promptLineMessage) =>
-            reader.NullableIncomingLines(promptLineMessage)
-                  .TakeWhile(line => !ReferenceEquals(line, null));
     }
 }

@@ -1,23 +1,23 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
-namespace Demo.EmergeDesignSolution.Domain
+namespace Demo.Domain
 {
-    internal class ProblemStatement
+    class ProblemStatement
     {
-        public IEnumerable<int> InputNumbers;
-        public int DesiredNumber { get; }
+        public IEnumerable<int> InputNumbers { get; }
+        public int DesiredResult { get; }
 
-        public ProblemStatement(IEnumerable<int> inputs, int desiredNumber)
+        public ProblemStatement(IEnumerable<int> inputNumbers, int desiredResult)
         {
-            InputNumbers = inputs ?? Enumerable.Empty<int>();
-            DesiredNumber = desiredNumber;
+            this.InputNumbers = inputNumbers;
+            this.DesiredResult = desiredResult;
         }
 
-        private string InputNumberFormattedList =>
-            string.Join(", ", InputNumbers.Select(number => $"{number}").ToArray());
-
         public override string ToString() =>
-            $"Problem statement: [{InputNumberFormattedList}] -> {DesiredNumber}";
+            $"Problem statement: {{{this.InputNumbersFormattedList}}} -> {this.DesiredResult}";
+
+        private string InputNumbersFormattedList =>
+            string.Join(", ", this.InputNumbers.Select(number => $"{number}").ToArray());
     }
 }

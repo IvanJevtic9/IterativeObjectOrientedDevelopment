@@ -1,39 +1,44 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using Demo.EmergeDesignSolution.Domain;
-using Demo.EmergeDesignSolution.Common;
-using Demo.EmergeDesignSolution.Domain.Expressions;
+using System.Linq;
+using Demo.Common;
+using Demo.Domain;
 
-namespace Demo.EmergeDesignSolution
+namespace Demo
 {
     class Program
     {
         static void Main(string[] args) =>
-            ExpressionStreamDemo();
+            ExpressionsStreamDemo();
 
-        private static void ExpressionStreamDemo() =>
-            InputNumbersSequence
-                .Select(new ExpressionStream().DistinctFor)
-                .SelectMany(expressions => Report(expressions, "No expression found."))
-                .WriteLinesTo(Console.Out);          
-
-        private static void ProductionBehaviour(string[] args) => 
-            ProblemStatements.Select(problem => new ExactSolver()
-                .DistinctExpressionFor(problem))
-                .SelectMany(expressions => Report(expressions, "No solutions for the problem.")) 
+        static void PartitioningDemo() =>
+            InputNumberSequences
+                .SelectMany(numbers => Partitionings.Of(numbers).All())
+                .Select(partitioning => partitioning.Select(partition => string.Join(" ", partition.ToArray())))
+                .Select(partitions => string.Join(" | ", partitions))
                 .WriteLinesTo(Console.Out);
 
-        private static IEnumerable<string> Report(IEnumerable<Expression> expressions, string onEmpty) =>
+        static void ExpressionsStreamDemo() =>
+            InputNumberSequences
+                .Select(new ExpressionStream().DistinctFor)
+                .SelectMany(expressions => Report(expressions, "No expressions found."))
+                .WriteLinesTo(Console.Out);
+
+        static void ProductionBehavior() =>
+            ProblemStatements
+                .Select(problem => new ExactSolver().DistinctExpressionsFor(problem))
+                .SelectMany(expressions => Report(expressions, "No solutions found for the problem."))
+                .WriteLinesTo(Console.Out);
+
+        static IEnumerable<string> Report(IEnumerable<Expression> expressions, string onEmpty) =>
             expressions
-                .Select((expression, index) =>
-                    $"{index + 1,3}. {expression} = {expression.Value}")
+                .Select((expression, index) => $"{index + 1,3}. {expression} = {expression.Value}")
                 .DefaultIfEmpty(onEmpty);
 
-        private static IEnumerable<IEnumerable<int>> InputNumbersSequence =>
-            new ConsoleInputReader().ReadAll();
+        private static IEnumerable<ProblemStatement> ProblemStatements =>
+            new ConsoleProblemsReader().ReadAll();
 
-        private static IEnumerable<ProblemStatement> ProblemStatements => 
-            new ConsoleProblemReader().ReadAll();
+        private static IEnumerable<IEnumerable<int>> InputNumberSequences =>
+            new ConsoleInputsReader().ReadAll();
     }
 }

@@ -1,14 +1,13 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-using Demo.EmergeDesignSolution.Domain.Expressions;
+﻿using System.Collections.Generic;
+using System.Linq;
 
-namespace Demo.EmergeDesignSolution.Domain
+namespace Demo.Domain
 {
-    internal class ExactSolver
+    class ExactSolver
     {
-        public IEnumerable<Expression> DistinctExpressionFor(ProblemStatement problem) =>
+        public IEnumerable<Expression> DistinctExpressionsFor(ProblemStatement problem) =>
             new ExpressionStream()
                 .DistinctFor(problem.InputNumbers)
-                .Where(expression => expression.Value == problem.DesiredNumber);
+                .Where(expression => expression.Value == problem.DesiredResult);
     }
 }

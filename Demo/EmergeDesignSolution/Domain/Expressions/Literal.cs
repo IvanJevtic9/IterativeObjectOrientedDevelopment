@@ -1,11 +1,15 @@
-﻿namespace Demo.EmergeDesignSolution.Domain.Expressions
+﻿namespace Demo.Domain.Expressions
 {
-    internal class Literal : Expression
+    class Literal : Expression
     {
         public override int Value { get; }
 
-        public Literal(int value) => Value = value;
+        public Literal(int value)
+        {
+            this.Value = value;
+        }
 
-        public override string ToString() => $"{Value}";
+        public override string ToString() => 
+            $"{this.Value}";
     }
 }
